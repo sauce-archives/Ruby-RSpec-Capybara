@@ -1,5 +1,5 @@
 def run_tests(platform, browser, version, junit_dir)
-  system("platform=\"#{platform}\" browserName=\"#{browser}\" version=\"#{version}\" JUNIT_DIR=\"#{junit_dir}\" parallel_rspec spec")
+  system("platform=\"#{platform}\" browserName=\"#{browser}\" version=\"#{version}\" JUNIT_DIR=\"#{junit_dir}\" PARALLEL_SPLIT_TEST_PROCESSES=10 parallel_split_test spec")
 end
 
 task :windows_8_1_chrome_43 do
@@ -18,7 +18,7 @@ task :windows_xp_firefox_39 do
   run_tests('Windows XP', 'firefox', '39', 'junit_reports/windows_xp_firefox_39')
 end
 
-multitask :test_sauce => [
+task :test_sauce => [
     :windows_8_1_chrome_43,
     :windows_7_firefox_40,
     :os_x_10_9_chrome_45,
